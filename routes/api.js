@@ -11,8 +11,9 @@ router.get('/', function(req, res, next) {
 
 router.post('/enqueue', function(req, res, next) {
   let amqpService = new service.AMPQService();
-  let submission = req.body;
-  amqpService.emitMessage("default1", submission.key, submission.message).then(function(){
+  let key = req.body.key;
+  let message = JSON.stringify(req.body.message);
+  amqpService.emitMessage("newjincin.exchange", key, message).then(function(){
     res.sendStatus(200);
   }).catch(function(e){
     res.status(400);

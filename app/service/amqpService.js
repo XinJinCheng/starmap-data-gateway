@@ -17,7 +17,7 @@ class AMPQService {
                 // var ex = 'topic_logs';
                 var ok = ch.assertExchange(ex, 'topic', { durable: true });
                 return ok.then(function () {
-                    ch.publish(ex, key, Buffer.from(message));
+                    ch.publish(ex, key, Buffer.from(message), {contentType:'text/plain'});
                     logger.debug(" [x] Sent %s:'%s'", key, message);
                     return ch.close();
                 });
